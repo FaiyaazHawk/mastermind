@@ -1,0 +1,43 @@
+Plan on how to do this project.
+
+Explanation of game:
+Computer will generate a random selection of 4 color disks (out of 6 total disks)
+code generator class??
+
+players: Computer 
+         User
+Player class?? (will keep track of color disk)
+
+User will have 12 turns to guess the 4 color disks
+
+board class??
+will show the board (getting info from players)
+will update the board to show the guess and the feedback
+
+hint class??
+will take the guesses and determine the feedback to display --> to the board class.
+
+game class??
+
+"Hi there, lets play mastermind"
+keep track of number of turns
+start and end game.
+game messages
+
+
+figure out how to display disks
+
+6 colors to display: green, blue, yellow, magenta, cyan, grey
+
+hint pins   red pin for correct color in correct place
+            white pin for correct color in wrong place
+            no pin if neither match
+
+hint_peg = "\u29bf"
+peg = "\u25cf"
+
+board template for 1 guess
+
+Guess 1 | O O O O | Hint: W _ R _
+
+Figure out how to draw colored circles in the terminal
