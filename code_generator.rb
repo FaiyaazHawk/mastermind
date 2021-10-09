@@ -5,8 +5,8 @@ class Code_generator
 
 CODES = ["green", "blue", "yellow", "magenta", "cyan", "grey"].freeze
 
-    def generate_code
-        return CODES.sample(4) #picks 4 random colors from array
+    def self.generate_code
+        return Array.new(CODES.sample(4)) #picks 4 random colors from array
     end
 end
 

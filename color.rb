@@ -21,7 +21,7 @@ class String
     end
 
     def grey
-        "\e[90m#{self}\e[0m"
+        "\e[37m#{self}\e[0m"
     end
 
     def white

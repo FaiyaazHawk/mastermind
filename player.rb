@@ -2,8 +2,8 @@
 class Player
     attr_accessor :guess, :turn
 
-    def initialize
-        @guess = nil
+    def initialize()
+        @guess = []
         @turn = 1
     end
 end
