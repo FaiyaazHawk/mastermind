@@ -6,6 +6,8 @@ require './code_generator.rb'
 class Game
     include Display
 
+    @@hint = []
+
     CODES = ["green", "blue", "yellow", "magenta", "cyan", "grey"].freeze
 
     def initialize
@@ -36,7 +38,7 @@ class Game
                 break
             else
                 create_hint
-                show_board
+                show_board(@player.guess,@player.turn,@@hint)
                 @player.turn += 1
             end
         end
@@ -46,11 +48,26 @@ class Game
         puts "Please enter your guess from the following 'green', 'blue', 'yellow', 'magenta', 'cyan', 'grey' \nYour guess should be entered as the each color separated with a space. \nEx. 'green blue yellow magenta"
         @player.guess = gets.chomp.downcase.split() 
         if @player.guess.all?{|x| CODES.include?(x)} #checking if player guess is valid guess
-            
+            break
         else
             puts "Error detected. Spelling matters"
             @player.guess = gets.chomp.downcase.split()
         end 
+    end
+
+    def create_hint(@player.guess,@computer.guess)
+        player = @player.guess
+        computer = @computer.guess
+        for i in player
+            for j in computer
+                if i == j && player[i] == computer[j]
+                    @@hint[i] = Board.hint_peg.white
+                elsif player[i] == computer [j] && i != j
+                    @@hint[i] = Board.hint_peg.red
+                else
+                    @@hint[i] == "_"
+
+        
     end
 end
 
