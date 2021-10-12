@@ -17,6 +17,3 @@ class Board
 
 end
 
-test = Board.new
-
-test.show_board(5,5,5)

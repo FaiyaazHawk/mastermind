@@ -2,17 +2,19 @@
 require './display.rb'
 require './player.rb'
 require './code_generator.rb'
+require './board.rb'
 
 class Game
     include Display
-
-    @@hint = []
+    
+    
 
     CODES = ["green", "blue", "yellow", "magenta", "cyan", "grey"].freeze
 
     def initialize
         @player = Player.new
         @computer = Player.new
+        @hint = []
     end
 
     def play_game
@@ -38,7 +40,7 @@ class Game
                 break
             else
                 create_hint
-                show_board(@player.guess,@player.turn,@@hint)
+                Board.show_board(@player.guess,@player.turn,@hint)
                 @player.turn += 1
             end
         end
@@ -48,31 +50,50 @@ class Game
         puts "Please enter your guess from the following 'green', 'blue', 'yellow', 'magenta', 'cyan', 'grey' \nYour guess should be entered as the each color separated with a space. \nEx. 'green blue yellow magenta"
         @player.guess = gets.chomp.downcase.split() 
         if @player.guess.all?{|x| CODES.include?(x)} #checking if player guess is valid guess
-            break
+            
         else
             puts "Error detected. Spelling matters"
             @player.guess = gets.chomp.downcase.split()
         end 
     end
 
-    def create_hint(@player.guess,@computer.guess)
+    def create_hint()
         player = @player.guess
         computer = @computer.guess
-        for i in player
-            for j in computer
-                if i == j && player[i] == computer[j]
-                    @@hint[i] = Board.hint_peg.white
-                elsif player[i] == computer [j] && i != j
-                    @@hint[i] = Board.hint_peg.red
+        hint = Array.new(4)
+        for i in player do
+            for j in computer do
+                if i == j && player.index(i) == computer.index(j) #both code and index match
+                    hint[player.index(i)] = Board.hint_peg.white
+                elsif i == j && player.index(i) != computer.index(j) # code matches but index doesnt
+                    hint[player.index(i)] = Board.hint_peg.red
                 else
-                    @@hint[i] == "_"
+                    hint[player.index(i)] = "_" #neither code nor index matches
+                end
+            end
+        end
+
+        @hint = hint
 
         
     end
+
+    
+
+
+
+
+
+
+
+
 end
 
 test = Game.new
 p test
 p test.computer_select
-p test.player_guesses
+test.player_input
+p test.create_hint
 p test
+
+
