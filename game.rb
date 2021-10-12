@@ -93,7 +93,7 @@ test = Game.new
 p test
 p test.computer_select
 test.player_input
-p test.create_hint
+test.create_hint
 p test
 
 
