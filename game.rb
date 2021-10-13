@@ -19,7 +19,7 @@ class Game
 
     def play_game
         introduction
-        computer_select
+        p computer_select #remove p as its for testing purposes
         player_guesses #limited to 12 turns
         conclusion
     end
@@ -36,7 +36,7 @@ class Game
     def player_guesses
         while @player.turn <= 12 do
             player_input
-            if @player.guess.all? { |code| @computer.guess.include?(code) } #checking if the player guessed correct
+            if @player.guess == @computer.guess
                 break
             else
                 create_hint
