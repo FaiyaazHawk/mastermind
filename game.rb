@@ -34,7 +34,7 @@ class Game
     end
 
     def player_guesses
-        while @player.turn < 13 do
+        while @player.turn <= 12 do
             player_input
             if @player.guess.all? { |code| @computer.guess.include?(code) } #checking if the player guessed correct
                 break
@@ -78,7 +78,21 @@ class Game
         
     end
 
-    
+    def conclusion
+        if @player.guess == @computer.guess
+            puts "Congrats!! You win!"
+        else
+            puts "Awww,you didn't get it"
+        end
+        puts "Do you want to play again? Y or N"
+        choice = gets.chomp
+        if choice == "Y" || choice == "y"
+            play_game
+        else
+            puts "Thanks for playing"
+        end
+        
+    end
 
 
 
@@ -89,11 +103,7 @@ class Game
 
 end
 
-test = Game.new
-p test
-p test.computer_select
-test.player_input
-test.create_hint
-p test
+start = Game.new
+start.play_game
 
 
