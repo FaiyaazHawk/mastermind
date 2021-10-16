@@ -19,7 +19,7 @@ class Game
 
     def play_game
         introduction
-        p computer_select #remove p as its for testing purposes
+        computer_select 
         player_guesses #limited to 12 turns
         conclusion
     end
@@ -61,14 +61,13 @@ class Game
         player = @player.guess
         computer = @computer.guess
         hint = Array.new(4)
-        for i in player do
-            for j in computer do
-                if i == j && player.index(i) == computer.index(j) #both code and index match
-                    hint[player.index(i)] = Board.hint_peg.white
-                elsif i == j && player.index(i) != computer.index(j) # code matches but index doesnt
-                    hint[player.index(i)] = Board.hint_peg.red
-                else
-                    hint[player.index(i)] = "_" #neither code nor index matches
+        for i in 0..player.size do
+            for j in 0..computer.size do
+                if player[i] == computer[j] && i == j #both index and code match
+                    hint[i] = Board.hint_peg.white
+                elsif player [i] == computer[j] && i != j #code match but not index
+                    hint[i] = Board.hint_peg.red
+                else next
                 end
             end
         end
@@ -80,6 +79,8 @@ class Game
 
     def conclusion
         if @player.guess == @computer.guess
+            create_hint
+            Board.show_board(@player.guess,@player.turn,@hint)
             puts "Congrats!! You win!"
         else
             puts "Awww,you didn't get it"
