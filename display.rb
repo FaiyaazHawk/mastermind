@@ -9,6 +9,10 @@ module Display
         puts "Hi there, Lets play Mastermind"
     end
 
+    def game_options
+        puts "You can either be a code MAKER or code BREAKER"
+    end
+
     def game_explanation
         <<~HEREDOC
             This is a 1 player game against the computer.

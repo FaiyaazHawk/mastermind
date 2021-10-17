@@ -41,3 +41,8 @@ board template for 1 guess
 Guess 1 | O O O O | Hint: W _ R _
 
 Figure out how to draw colored circles in the terminal
+
+
+Setting up computer ability to guess. 
+update intro messages
+branch

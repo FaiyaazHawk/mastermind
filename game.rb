@@ -19,15 +19,40 @@ class Game
 
     def play_game
         introduction
-        computer_select 
-        player_guesses #limited to 12 turns
+        game_select
         conclusion
     end
 
     def introduction
         puts welcome
-        puts game_explanation
+        puts game_options
     end
+
+    def game_select
+        puts "press 1 to be a BREAKER or 2 to be a MAKER"
+        game = gets.chomp
+        if game == "1"
+            code_breaker
+        elsif game == "2"
+            code_maker
+        else
+            puts "Input error"
+            game = gets.chomp
+        end
+    end
+
+    def code_breaker
+        puts game_explanation
+        computer_select
+        player_guesses #limited to 12 turns
+    end
+
+    def code_maker
+        puts breaker_explanation
+        player_code
+        computer_guess
+    end
+
     
     def computer_select
         @computer.guess = Code_generator.generate_code
@@ -67,7 +92,8 @@ class Game
                     hint[i] = Board.hint_peg.white
                 elsif player [i] == computer[j] && i != j #code match but not index
                     hint[i] = Board.hint_peg.red
-                else next
+                else 
+                    next
                 end
             end
         end
