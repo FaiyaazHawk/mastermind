@@ -49,8 +49,8 @@ class Game
 
     def code_maker
         puts breaker_explanation
-        player_code
-        computer_guess
+        player_input
+        computer_guesses
     end
 
     
@@ -71,8 +71,22 @@ class Game
         end
     end
 
+    def computer_guesses
+        while @computer.turn <= 12 do
+            computer_turn
+            if @player.guess == @computer.guess
+                break
+            else
+                create_hint
+                Board.show_board(@computer.guess,@computer.turn,@hint)
+                @computer.turn += 1
+            end
+        end
+        
+    end
+
     def player_input
-        puts "Please enter your guess from the following 'green', 'blue', 'yellow', 'magenta', 'cyan', 'grey' \nYour guess should be entered as the each color separated with a space. \nEx. 'green blue yellow magenta"
+        puts "Please enter your code from the following 'green', 'blue', 'yellow', 'magenta', 'cyan', 'grey' \nYour code should be entered as the each color separated with a space. \nEx. 'green blue yellow magenta"
         @player.guess = gets.chomp.downcase.split() 
         if @player.guess.all?{|x| CODES.include?(x)} #checking if player guess is valid guess
             
@@ -107,9 +121,9 @@ class Game
         if @player.guess == @computer.guess
             create_hint
             Board.show_board(@player.guess,@player.turn,@hint)
-            puts "Congrats!! You win!"
+            puts "The code was broken!"
         else
-            puts "Awww,you didn't get it"
+            puts "The code was not broken!"
         end
         puts "Do you want to play again? Y or N"
         choice = gets.chomp
