@@ -1,1 +1,0 @@
-# code to solve mastermind for cpu. most likely going to use don knuth method

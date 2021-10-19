@@ -43,6 +43,9 @@ Guess 1 | O O O O | Hint: W _ R _
 Figure out how to draw colored circles in the terminal
 
 
-Setting up computer ability to guess. 
+Setting up computer ability to guess.
+# going hunting for pegs. will only work since hints are positionally locked. take 6 guesses with each color and for white pegs,
+# lock them to the guess.
+
 update intro messages
 branch
