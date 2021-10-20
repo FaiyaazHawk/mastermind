@@ -14,7 +14,7 @@ class Game
     def initialize
         @player = Player.new
         @computer = Player.new
-        @hint = []
+        @hint = Array.new(4)
     end
 
     def play_game
@@ -69,21 +69,35 @@ class Game
                 @player.turn += 1
             end
         end
+        create_hint
+        Board.show_board(@player.guess,@player.turn,@hint)
     end
 
     def computer_guesses
-        while @computer.turn <= 12 do
-            computer_turn
-            if @player.guess == @computer.guess
-                break
-            else
-                create_hint
-                Board.show_board(@computer.guess,@computer.turn,@hint)
-                @computer.turn += 1
+        guesses = ["green", "blue", "yellow", "magenta", "cyan", "grey"]
+        solution = Array.new(4)
+        while solution != @player.guess && @computer.turn < 13 do
+            puts "Thinking..."
+            sleep(1.5)
+            guess = guesses.pop()
+            @computer.guess = Array.new(4,guess)
+            create_hint_computer
+            Board.show_board(@computer.guess,@computer.turn,@hint)
+            @computer.turn += 1
+            if @hint.include?(Board.hint_peg.white)
+                solution[@hint.index(Board.hint_peg.white)] = guess
             end
         end
+        @computer.guess = solution
+        create_hint_computer
+        puts "I think I got it..."
+        sleep (1.5)
+        Board.show_board(@computer.guess,@computer.turn,@hint)
+            
         
     end
+
+    
 
     def player_input
         puts "Please enter your code from the following 'green', 'blue', 'yellow', 'magenta', 'cyan', 'grey' \nYour code should be entered as the each color separated with a space. \nEx. 'green blue yellow magenta"
@@ -117,10 +131,31 @@ class Game
         
     end
 
+    def create_hint_computer
+        player = @player.guess
+        computer = @computer.guess
+        hint = Array.new(4)
+        for i in 0..computer.size do
+            for j in 0..player.size-1 do
+                if computer[i] == player[j] && i == j #both index and code match
+                    hint[i] = Board.hint_peg.white
+                elsif computer [i] == player[j] && i != j #code match but not index
+                    hint[i] = Board.hint_peg.red
+                else 
+                    next
+                end
+            end
+        end
+
+        @hint = hint
+
+        
+    end
+
     def conclusion
         if @player.guess == @computer.guess
             create_hint
-            Board.show_board(@player.guess,@player.turn,@hint)
+            
             puts "The code was broken!"
         else
             puts "The code was not broken!"
