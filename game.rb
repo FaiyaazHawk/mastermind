@@ -84,7 +84,9 @@ class Game
       create_hint_computer
       Board.show_board(@computer.guess, @computer.turn, @hint)
       @computer.turn += 1
-      solution[@hint.index(Board.hint_peg.white)] = guess if @hint.include?(Board.hint_peg.white)
+      if @hint.include?(Board.hint_peg.white)
+        solution[@hint.index(Board.hint_peg.white)] = guess
+      end
     end
     @computer.guess = solution
     create_hint_computer
